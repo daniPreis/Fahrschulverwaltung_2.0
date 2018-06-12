@@ -12,7 +12,7 @@ public class Drivinginstructor extends Person implements Subject {
 	private int numStudents;
 	private List<Vehicle> licensedVehicles = new LinkedList<Vehicle>();
 	public String vehiclesAsString;
-	
+	public int sizeOflV = getlicensedVehicles().size();
 	
 	
 
