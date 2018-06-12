@@ -43,23 +43,23 @@ public class Controller extends Application {
 
 		Create_Vehicle_GUI cV = new Create_Vehicle_GUI();
 		Detail_Vehicle_GUI dV = new Detail_Vehicle_GUI();
-		
+
 		Create_Student_GUI cS = new Create_Student_GUI();
 		Detail_Student_GUI dS = new Detail_Student_GUI();
-		
+
 		Create_Instructor_GUI cI = new Create_Instructor_GUI();
 		Detail_Instructor_GUI dI = new Detail_Instructor_GUI();
-		
-		
+
+
 		addI_GUI = new Scene(cI.showDetails(), 900, 700);
 		detI_GUI = new Scene(dI.showDetails(),900,700);
-		
+
 		addV_GUI = new Scene(cV.showDetails(), 900, 700);
 		detV_GUI = new Scene(dV.showDetails(),900,700);
-		
+
 		addS_GUI = new Scene(cS.showDetails(), 900, 700);
 		detS_GUI = new Scene(dS.showDetails(),900,700);
-		
+
 		Stage addStage = new Stage();
 
 		di_GUI = new Scene(gui.createDIGUI(admin.drivinginstructorlist), 900, 700);
@@ -124,6 +124,7 @@ public class Controller extends Application {
 		gui.drivingstudentV.setOnAction(e -> primaryStage.setScene(ds_GUI));
 		gui.addV.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+
 				addStage.setScene(addV_GUI);
 				addStage.setTitle("Fahrzeug hinzufügen");
 				addStage.show();
@@ -131,15 +132,17 @@ public class Controller extends Application {
 
 		});
 
-		// Verknüpfung GUI und Fachlogik
+		// VerknÃ¼pfung GUI und Fachlogik
 
 		gui.tableV.setRowFactory(tv -> {
 			TableRow<Vehicle> row = new TableRow<Vehicle>();
 			row.setOnMouseClicked(event -> {
 				if (event.getClickCount() == 2 && (!row.isEmpty())) {
 					Vehicle rowData = row.getItem();
+					dV.setVehicle(rowData);
 					addStage.setScene(detV_GUI);
 					addStage.setTitle("Fahrzeug bearbeiten");
+
 					addStage.show();
 				}
 			});
@@ -150,7 +153,8 @@ public class Controller extends Application {
 			TableRow<Drivingstudent> row = new TableRow<Drivingstudent>();
 			row.setOnMouseClicked(event -> {
 				if (event.getClickCount() == 2 && (!row.isEmpty())) {
-					Drivingstudent rowData = row.getItem();
+					Drivingstudent rowData = (Drivingstudent) row.getItem();
+					dS.setDrivingstudent(rowData);
 					addStage.setScene(detS_GUI);
 					addStage.setTitle("Fahrschüler bearbeiten");
 					addStage.show();
@@ -164,6 +168,7 @@ public class Controller extends Application {
 			row.setOnMouseClicked(event -> {
 				if (event.getClickCount() == 2 && (!row.isEmpty())) {
 					Drivinginstructor rowData = row.getItem();
+                    dI.changeView(rowData);
 					addStage.setScene(detI_GUI);
 					addStage.setTitle("Fahrlehrer bearbeiten");
 					addStage.show();
@@ -249,7 +254,7 @@ public class Controller extends Application {
 				}
 				Drivinginstructor b = new Drivinginstructor(
 						cI.nameTI.getText(), cI.surnameTI.getText(), new Adress(Integer.parseInt(cI.plZTI.getText()),
-								cI.cityTI.getText(), cI.streetTI.getText(), Integer.parseInt(cI.houseNrTI.getText())),
+						cI.cityTI.getText(), cI.streetTI.getText(), Integer.parseInt(cI.houseNrTI.getText())),
 						vh);
 
 				for (Vehicle h : admin.vehicles) {
@@ -285,15 +290,7 @@ public class Controller extends Application {
 
 		});
 
-		/*cO.createF.setOnAction(new EventHandler<ActionEvent>() {
 
-			public void handle(ActionEvent e) {
-
-				sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-
-			}
-		});*/
-		
 		gui.loadH.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				sAL.load(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
