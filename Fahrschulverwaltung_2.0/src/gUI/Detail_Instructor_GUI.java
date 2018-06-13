@@ -22,23 +22,8 @@ public class Detail_Instructor_GUI extends Instructor_GUI {
 
    public void changeView(Drivinginstructor drivinginstructor){
 
-        nameTI = new TextField(drivinginstructor.getName());
-        surnameTI = new TextField(drivinginstructor.getFirstname());
-        cityTI = new TextField(drivinginstructor.getCity());
-        plZTI = new TextField(Integer.toString(drivinginstructor.getPLZ()));
-        streetTI = new TextField(drivinginstructor.getStreet());
-        houseNrTI = new TextField(Integer.toString(drivinginstructor.getHousenr()));
 
 
-        if (!drivinginstructor.getlicensedVehicles().isEmpty()) {
-            vehicleT1 = new TextField("1");
-        }
-        if (drivinginstructor.sizeOflV > 1) {
-           // vehicleT2 = new TextField(drivinginstructor.getlicensedVehicles().get(2).getId());
-        }
-        if (drivinginstructor.sizeOflV > 2) {
-           // vehicleT3 = new TextField(drivinginstructor.getlicensedVehicles().get(3).getId());
-        }
 
         vehicleT2 = new TextField();
         vehicleT3 = new TextField();

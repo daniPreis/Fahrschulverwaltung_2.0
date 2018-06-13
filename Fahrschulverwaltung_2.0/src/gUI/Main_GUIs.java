@@ -141,12 +141,12 @@ public class Main_GUIs {
 		manufacturerCol.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("manufacturer"));
 		manufacturerCol.setMinWidth(150);
 
-		TableColumn<Vehicle, Integer> constructionYearCol = new TableColumn<Vehicle, Integer>("Baujahr");
+		TableColumn<Vehicle, Integer> constructionYearCol = new TableColumn<>("Baujahr");
 		constructionYearCol.setCellValueFactory(new PropertyValueFactory<Vehicle, Integer>("constructionYear"));
 		constructionYearCol.setMinWidth(150);
 
 		tableV.getColumns().addAll(idColV, modelCol, admissionClassCol, manufacturerCol, constructionYearCol);
-		
+
 
 		bpV.setCenter(tableV);
 		addV.setPrefSize(50, 50);
@@ -198,103 +198,52 @@ public class Main_GUIs {
 		PLZCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, Integer>("pLZ"));
 		PLZCol.setMinWidth(150);
 		PLZCol.setCellFactory(TextFieldTableCell.<Drivingstudent, Integer>forTableColumn(new IntegerStringConverter()));
-		/*PLZCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivingstudent, Integer>>() {
-			@Override
-			public void handle(CellEditEvent<Drivingstudent, Integer> evt) {
-				Integer neuWert = evt.getNewValue();
-				evt.getTableView().getItems().get(evt.getTablePosition().getRow()).getAdress().setPLZ(neuWert);
-			}
-		});*/
+
 
 		TableColumn<Drivingstudent, String> CityCol = new TableColumn<Drivingstudent, String>("Stadt");
 		CityCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, String>("city"));
 		CityCol.setMinWidth(150);
 		CityCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		/*CityCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivingstudent, String>>() {
-			@Override
-			public void handle(CellEditEvent<Drivingstudent, String> t) {
-				((Drivingstudent) t.getTableView().getItems().get(t.getTablePosition().getRow())).getAdress()
-						.setCity(t.getNewValue());
-			}
-		});*/
+
 
 		TableColumn<Drivingstudent, String> StreetCol = new TableColumn<Drivingstudent, String>("Straße");
 		StreetCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, String>("street"));
 		StreetCol.setMinWidth(150);
 		StreetCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		/*StreetCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivingstudent, String>>() {
-			@Override
-			public void handle(CellEditEvent<Drivingstudent, String> t) {
-				((Drivingstudent) t.getTableView().getItems().get(t.getTablePosition().getRow())).getAdress()
-						.setStreet(t.getNewValue());
 
-			}
-		});*/
 
 		TableColumn<Drivingstudent, Integer> HouseNrCol = new TableColumn<Drivingstudent, Integer>("Hausnummer");
 		HouseNrCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, Integer>("housenr"));
 		HouseNrCol.setMinWidth(150);
 		HouseNrCol.setCellFactory(
 				TextFieldTableCell.<Drivingstudent, Integer>forTableColumn(new IntegerStringConverter()));
-		/*HouseNrCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivingstudent, Integer>>() {
-			@Override
-			public void handle(CellEditEvent<Drivingstudent, Integer> evt) {
-				Integer newVal = evt.getNewValue();
-				evt.getTableView().getItems().get(evt.getTablePosition().getRow()).getAdress().setHousenr(newVal);
-			}
-		});*/
+
 
 		TableColumn<Drivingstudent, Integer> numThLeCol = new TableColumn<Drivingstudent, Integer>("anzTheorieStunden");
 		numThLeCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, Integer>("numTheLes"));
 		numThLeCol.setMinWidth(150);
 		numThLeCol.setCellFactory(
 				TextFieldTableCell.<Drivingstudent, Integer>forTableColumn(new IntegerStringConverter()));
-		/*numThLeCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivingstudent, Integer>>() {
-			@Override
-			public void handle(CellEditEvent<Drivingstudent, Integer> evt) {
-				Integer newVal = evt.getNewValue();
-				evt.getTableView().getItems().get(evt.getTablePosition().getRow()).setNumTheLes(newVal);
-			}
-		});*/
+
 
 		TableColumn<Drivingstudent, String> ThPassedCol = new TableColumn<Drivingstudent, String>("theorieBestanden");
 		ThPassedCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, String>("theoryPassed"));
 		ThPassedCol.setMinWidth(150);
 		ThPassedCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		/*ThPassedCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivingstudent, String>>() {
-			@Override
-			public void handle(CellEditEvent<Drivingstudent, String> t) {
-				((Drivingstudent) t.getTableView().getItems().get(t.getTablePosition().getRow())).getAdress()
-						.setStreet(t.getNewValue());
 
-			}
-		});*/
 
 		TableColumn<Drivingstudent, Integer> numPrLeCol = new TableColumn<Drivingstudent, Integer>("anzPraxisStunden");
 		numPrLeCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, Integer>("numPraLes"));
 		numPrLeCol.setMinWidth(150);
 		numPrLeCol.setCellFactory(
 				TextFieldTableCell.<Drivingstudent, Integer>forTableColumn(new IntegerStringConverter()));
-		/*numPrLeCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivingstudent, Integer>>() {
-			@Override
-			public void handle(CellEditEvent<Drivingstudent, Integer> evt) {
-				Integer newVal = evt.getNewValue();
-				evt.getTableView().getItems().get(evt.getTablePosition().getRow()).setNumPraLes(newVal);
-			}
-		});*/
+
 
 		TableColumn<Drivingstudent, String> praPassedCol = new TableColumn<Drivingstudent, String>("praxisBestanden");
 		praPassedCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, String>("praxisPassed"));
 		praPassedCol.setMinWidth(150);
 		praPassedCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		/*praPassedCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivingstudent, String>>() {
-			@Override
-			public void handle(CellEditEvent<Drivingstudent, String> t) {
-				((Drivingstudent) t.getTableView().getItems().get(t.getTablePosition().getRow())).getAdress()
-						.setStreet(t.getNewValue());
 
-			}
-		});*/
 
 		TableColumn<Drivingstudent, Drivinginstructor> drivinginstructor = new TableColumn<Drivingstudent, Drivinginstructor>(
 				"Fahrlehrer");
@@ -322,7 +271,7 @@ public class Main_GUIs {
 		return bpS;
 	}
 
-	public BorderPane createHomeGUI() {
+	BorderPane createHomeGUI() {
 
 		// Menüleiste
 		mbH.getMenus().add(dataH);
@@ -378,7 +327,7 @@ public class Main_GUIs {
 		vehicle1I.getItems().add(vehicleI);
 		bpI.setTop(mbI);
 		tableI = new TableView<Drivinginstructor>();
-		// dataI = getInitialTableData();
+
 
 		tableI.setPrefWidth(450);
 		tableI.setPrefHeight(300);
@@ -389,13 +338,7 @@ public class Main_GUIs {
 		nameColI.setCellFactory(TextFieldTableCell.<Drivinginstructor>forTableColumn());
 		nameColI.setMinWidth(150);
 		nameColI.setCellFactory(TextFieldTableCell.forTableColumn());
-	/*	nameColI.setOnEditCommit(new EventHandler<CellEditEvent<Drivinginstructor, String>>() {
-			@Override
-			public void handle(CellEditEvent<Drivinginstructor, String> t) {
-				((Drivinginstructor) t.getTableView().getItems().get(t.getTablePosition().getRow()))
-						.setName(t.getNewValue());
-			}
-		});*/
+
 
 		firstnameColI.setCellValueFactory(new PropertyValueFactory<Drivinginstructor, String>("firstname"));
 		firstnameColI.setMinWidth(150);
@@ -416,38 +359,20 @@ public class Main_GUIs {
 		CityCol.setCellValueFactory(new PropertyValueFactory<Drivinginstructor, String>("city"));
 		CityCol.setCellFactory(TextFieldTableCell.forTableColumn());
 		CityCol.setMinWidth(150);
-		/*CityCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivinginstructor, String>>() {
-			@Override
-			public void handle(CellEditEvent<Drivinginstructor, String> t) {
-				((Drivinginstructor) t.getTableView().getItems().get(t.getTablePosition().getRow())).getAdress()
-						.setCity(t.getNewValue());
-			}
-		});*/
+
 
 		TableColumn<Drivinginstructor, String> StreetCol = new TableColumn<Drivinginstructor, String>("Straße");
 		StreetCol.setCellValueFactory(new PropertyValueFactory<Drivinginstructor, String>("street"));
 		StreetCol.setMinWidth(150);
 		StreetCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		/*StreetCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivinginstructor, String>>() {
-			@Override
-			public void handle(CellEditEvent<Drivinginstructor, String> t) {
-				((Drivinginstructor) t.getTableView().getItems().get(t.getTablePosition().getRow())).getAdress()
-						.setStreet(t.getNewValue());
-			}
-		});*/
+
 
 		TableColumn<Drivinginstructor, Integer> HouseNrCol = new TableColumn<Drivinginstructor, Integer>("Hausnummer");
 		HouseNrCol.setCellValueFactory(new PropertyValueFactory<Drivinginstructor, Integer>("housenr"));
 		HouseNrCol.setMinWidth(150);
 		HouseNrCol.setCellFactory(
 				TextFieldTableCell.<Drivinginstructor, Integer>forTableColumn(new IntegerStringConverter()));
-		/*HouseNrCol.setOnEditCommit(new EventHandler<CellEditEvent<Drivinginstructor, Integer>>() {
-			@Override
-			public void handle(CellEditEvent<Drivinginstructor, Integer> evt) {
-				Integer newVal = evt.getNewValue();
-				evt.getTableView().getItems().get(evt.getTablePosition().getRow()).getAdress().setPLZ(newVal);
-			}
-		});*/
+
 
 		TableColumn<Drivinginstructor, String> vehicleColI = new TableColumn<Drivinginstructor, String>(
 				"Zugelassene Fahrzeuge");

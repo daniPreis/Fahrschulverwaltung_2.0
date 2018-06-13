@@ -14,16 +14,7 @@ public class Detail_Student_GUI extends Student_GUI {
 	Drivingstudent rowData = new Drivingstudent("","",new Adress(0,"","",0),0,"",null, 0,"");
 
 	public Detail_Student_GUI() {
-		label = new Label("Fahrschüler bearbeiten");
-		nameT= new TextField(rowData.getName());
-		surnameT = new TextField(rowData.getFirstname());
-		cityT = new TextField(rowData.getCity());
-		plZT = new TextField(Integer.toString(rowData.getPLZ()));
-		streetT = new TextField(rowData.getStreet());
-		houseNrT = new TextField(Integer.toString(rowData.getHousenr()));
-		numTheLesT = new TextField(Integer.toString(rowData.getNumTheLes()));
-		theoryPassedT = new TextField(rowData.getThPa());
-		numPraLesT = new TextField(rowData.getPrPa());
+
 		//drivinginstructorT = new TextField(rowData.getDrivinginstructor().getName());
 	}
 

@@ -12,14 +12,6 @@ public class Detail_Vehicle_GUI extends Vehicle_GUI {
 	Button print = new Button("In Datei speichern");
 	Vehicle rowData = new Vehicle("","","","",0);
 
-	public Detail_Vehicle_GUI() {
-		label = new Label("Fahrzeug bearbeiten");
-		idT = new TextField(rowData.getId());
-		modelT = new TextField(rowData.getModel());
-		constructionYearT = new TextField("rowData.getConstructionYear()");
-		admissionClassT = new TextField(rowData.getAdmissionClass());
-		manufacturerT = new TextField(rowData.getManufacturer());
-	}
 
 	@Override
 	VBox setButtons() {

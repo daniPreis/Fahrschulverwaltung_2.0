@@ -29,7 +29,7 @@ public abstract class Instructor_GUI extends Object_GUI{
 		Label streetI = new Label("Straße: ");
 		Label houseNrI = new Label("Hausnummer: ");
 		Label vehicleI1 = new Label("Zugewiesene Fahrzeuge: ");
-		
+
 		gp.addRow(1, label);
 		gp.addRow(2, nameI, nameTI);
 		gp.addRow(3, surnameI, surnameTI);
