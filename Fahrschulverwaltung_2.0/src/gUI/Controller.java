@@ -135,10 +135,11 @@ public class Controller extends Application {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Vehicle rowData = row.getItem();
+                    dV.rowData = rowData;
                     dV.label = new Label("Fahrzeug bearbeiten");
                     dV.idT = new TextField(rowData.getId());
                     dV.modelT = new TextField(rowData.getModel());
-                    dV.constructionYearT = new TextField("rowData.getConstructionYear()");
+                    dV.constructionYearT = new TextField(Integer.toString(rowData.getConstructionYear()));
                     dV.admissionClassT = new TextField(rowData.getAdmissionClass());
                     dV.manufacturerT = new TextField(rowData.getManufacturer());
                     Scene detV_GUI = new Scene(dV.showDetails(), 900, 700);
@@ -151,11 +152,16 @@ public class Controller extends Application {
             return row;
         });
 
+       // dV.save.setOnAction();
+
+        dV.print.setOnAction(e -> dV.rowData.writeInFile());
+
         gui.tableS.setRowFactory(tv -> {
             TableRow<Drivingstudent> row = new TableRow<Drivingstudent>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Drivingstudent rowData = (Drivingstudent) row.getItem();
+                    dS.rowData = rowData;
                     dS.label = new Label("Fahrschüler bearbeiten");
                     dS.nameT = new TextField(rowData.getName());
                     dS.surnameT = new TextField(rowData.getFirstname());
@@ -175,11 +181,14 @@ public class Controller extends Application {
             return row;
         });
 
+        dS.print.setOnAction(e -> dS.rowData.writeInFile());
+
         gui.tableI.setRowFactory(tv -> {
             TableRow<Drivinginstructor> row = new TableRow<Drivinginstructor>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Drivinginstructor rowData = row.getItem();
+                    dI.rowData = rowData;
                     dI.label = new Label("Fahrlehrer bearbeiten");
                     dI.nameTI = new TextField(rowData.getName());
                     dI.surnameTI = new TextField(rowData.getFirstname());
@@ -202,9 +211,9 @@ public class Controller extends Application {
                     addStage.show();
                 }
             });
-
             return row;
         });
+        dI.print.setOnAction(e -> dI.rowData.writeInFile());
 
         gui.saveH.setOnAction(new EventHandler<ActionEvent>() {
 

@@ -11,7 +11,7 @@ public class Detail_Instructor_GUI extends Instructor_GUI {
 
     Button save = new Button("Speichern");
     Button print = new Button("In Datei speichern");
-  // Drivinginstructor rowData = new Drivinginstructor("", "", new Adress(0, "", "", 0));
+    Drivinginstructor rowData = new Drivinginstructor("", "", new Adress(0, "", "", 0));
 
     public Detail_Instructor_GUI() {
 
