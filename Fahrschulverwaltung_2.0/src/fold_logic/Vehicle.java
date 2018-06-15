@@ -1,10 +1,13 @@
 package fold_logic;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
-public class  Vehicle {
+public class  Vehicle implements Observable {
 	
 	private String id;
 	private String model;
@@ -74,6 +77,13 @@ public class  Vehicle {
 	}
 
 
-	
-	
+	@Override
+	public void addListener(InvalidationListener listener) {
+
+	}
+
+	@Override
+	public void removeListener(InvalidationListener listener) {
+
+	}
 }

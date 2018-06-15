@@ -1,12 +1,14 @@
 package fold_logic;
 
+import javafx.beans.Observable;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-public abstract class Person {
+public abstract class Person implements Observable {
 
 	private String name;
 	private String firstname;
