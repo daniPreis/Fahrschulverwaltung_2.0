@@ -29,7 +29,7 @@ public class Controller extends Application {
     Scene addI_GUI;
     Scene addV_GUI;
     Scene addS_GUI;
-
+    Scene detV_GUI;
 
     Administration admin = Administration.getInstance();
     SaverAndLoader sAL = new SaverAndLoader();
@@ -128,7 +128,7 @@ public class Controller extends Application {
 
         });
 
-        // VerknÃ¼pfung GUI und Fachlogik
+        // Verknüpfung GUI und Fachlogik
 
         gui.tableV.setRowFactory(tv -> {
             TableRow<Vehicle> row = new TableRow<Vehicle>();
@@ -142,17 +142,30 @@ public class Controller extends Application {
                     dV.constructionYearT = new TextField(Integer.toString(rowData.getConstructionYear()));
                     dV.admissionClassT = new TextField(rowData.getAdmissionClass());
                     dV.manufacturerT = new TextField(rowData.getManufacturer());
-                    Scene detV_GUI = new Scene(dV.showDetails(), 900, 700);
+
+                    detV_GUI = new Scene(dV.showDetails(),900,700);
                     addStage.setScene(detV_GUI);
                     addStage.setTitle("Fahrzeug bearbeiten");
-
                     addStage.show();
+
+                    for (Vehicle vehicle : admin.vehicles) {
+                        if (vehicle.equals(rowData)) {
+                            admin.vehicles.remove(vehicle);
+                        }
+                    }
                 }
             });
             return row;
         });
 
-       // dV.save.setOnAction();
+        dV.save.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                admin.vehicles.add(new Vehicle(cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(),
+                        cV.manufacturerT.getText(), Integer.parseInt(cV.constructionYearT.getText())));
+                addStage.close();
+            }
+        });
 
         dV.print.setOnAction(e -> dV.rowData.writeInFile());
 
@@ -176,18 +189,47 @@ public class Controller extends Application {
                     addStage.setScene(detS_GUI);
                     addStage.setTitle("Fahrschüler bearbeiten");
                     addStage.show();
+
+                    for (Drivingstudent drivingstudent : admin.studentList) {
+                        if (drivingstudent.equals(rowData)) {
+                            admin.studentList.remove(drivingstudent);
+                        }
+                    }
                 }
             });
             return row;
         });
 
         dS.print.setOnAction(e -> dS.rowData.writeInFile());
+        dS.save.setOnAction(new EventHandler<ActionEvent>() {
+            Drivinginstructor a = new Drivinginstructor("", "", new Adress(0, "", "", 0), 0);
 
-        gui.tableI.setRowFactory(tv -> {
+            public void handle(ActionEvent e) {
+
+                for (Drivinginstructor b : admin.drivinginstructorlist) {
+                    if (b.getName().equals(cS.drivinginstructorT.getText()))
+                        a = b;
+                    else {
+                        JOptionPane.showMessageDialog(null,
+                                "Vorhandener Fahrlehrer nicht vorhanden, bitte vorhandenen Fahrlehrer eintragen");
+                    }
+                }
+                admin.studentList.add(new Drivingstudent(cS.nameT.getText(), cS.surnameT.getText(),
+                        new Adress(Integer.parseInt(cS.plZT.getText()), cS.cityT.getText(), cS.streetT.getText(),
+                                Integer.parseInt(cS.houseNrT.getText())),
+                        Integer.parseInt(cS.numTheLesT.getText()), cS.theoryPassedT.getText(), a,
+                        Integer.parseInt(cS.numPraLesT.getText()), cS.praxisPassedT.getText()));
+                addStage.close();
+            }
+        });
+        gui.tableI.setRowFactory(tv ->
+
+        {
             TableRow<Drivinginstructor> row = new TableRow<Drivinginstructor>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Drivinginstructor rowData = row.getItem();
+
                     dI.rowData = rowData;
                     dI.label = new Label("Fahrlehrer bearbeiten");
                     dI.nameTI = new TextField(rowData.getName());
@@ -209,13 +251,65 @@ public class Controller extends Application {
                     addStage.setScene(detI_GUI);
                     addStage.setTitle("Fahrlehrer bearbeiten");
                     addStage.show();
+                    for (Drivinginstructor d : admin.drivinginstructorlist) {
+                        if (d.getId() == rowData.getId()) {
+                            admin.drivinginstructorlist.remove(d);
+                        }
+                    }
                 }
             });
             return row;
         });
+
+
         dI.print.setOnAction(e -> dI.rowData.writeInFile());
 
-        gui.saveH.setOnAction(new EventHandler<ActionEvent>() {
+        dI.save.setOnAction(new EventHandler<ActionEvent>()
+
+        {
+
+            Vehicle vh;
+            Vehicle vh1;
+            Vehicle vh2;
+
+            public void handle(ActionEvent e) {
+                for (Vehicle h : admin.vehicles) {
+                    if (cI.vehicleT1.getText().equals(h.getId())) {
+                        vh = h;
+                    } else {
+                        // JOptionPane.showMessageDialog(null,
+                        // "Fahrzeug nicht vorhanden. Bitte tragen sie ein vorhandenes Fahrzeug ein");
+                    }
+                }
+                Drivinginstructor b = new Drivinginstructor(
+                        cI.nameTI.getText(), cI.surnameTI.getText(), new Adress(Integer.parseInt(cI.plZTI.getText()),
+                        cI.cityTI.getText(), cI.streetTI.getText(), Integer.parseInt(cI.houseNrTI.getText())),
+                        vh);
+
+                for (Vehicle h : admin.vehicles) {
+                    if (cI.vehicleT2.getText().equals(h.getId())) {
+                        vh1 = h;
+                        b.addZugelasseneKlasse(vh1);
+                    } else {
+                        // JOptionPane.showMessageDialog(null, "Fahrzeug nicht vorhanden. Bitte tragen sie ein vorhandenes Fahrzeug ein");
+                    }
+                }
+                for (Vehicle h : admin.vehicles) {
+                    if (cI.vehicleT3.getText().equals(h.getId())) {
+                        vh2 = h;
+                        b.addZugelasseneKlasse(vh2);
+                    } else {
+                        // JOptionPane.showMessageDialog(null, "Fahrzeug nicht vorhanden. Bitte tragen sie ein vorhandenes Fahrzeug ein");
+                    }
+                }
+                admin.drivinginstructorlist.add(b);
+                addStage.close();
+            }
+        });
+
+        gui.saveH.setOnAction(new EventHandler<ActionEvent>()
+
+        {
 
             public void handle(ActionEvent e) {
 
@@ -224,7 +318,9 @@ public class Controller extends Application {
             }
         });
 
-        gui.saveV.setOnAction(new EventHandler<ActionEvent>() {
+        gui.saveV.setOnAction(new EventHandler<ActionEvent>()
+
+        {
 
             public void handle(ActionEvent e) {
 
@@ -233,7 +329,9 @@ public class Controller extends Application {
             }
         });
 
-        gui.saveI.setOnAction(new EventHandler<ActionEvent>() {
+        gui.saveI.setOnAction(new EventHandler<ActionEvent>()
+
+        {
 
             public void handle(ActionEvent e) {
 
@@ -242,7 +340,9 @@ public class Controller extends Application {
             }
         });
 
-        gui.saveS.setOnAction(new EventHandler<ActionEvent>() {
+        gui.saveS.setOnAction(new EventHandler<ActionEvent>()
+
+        {
 
             public void handle(ActionEvent e) {
 
@@ -251,7 +351,9 @@ public class Controller extends Application {
             }
         });
 
-        cS.create.setOnAction(new EventHandler<ActionEvent>() {
+        cS.create.setOnAction(new EventHandler<ActionEvent>()
+
+        {
 
             Drivinginstructor a = new Drivinginstructor("", "", new Adress(0, "", "", 0), 0);
 
@@ -274,7 +376,9 @@ public class Controller extends Application {
             }
         });
 
-        cI.create.setOnAction(new EventHandler<ActionEvent>() {
+        cI.create.setOnAction(new EventHandler<ActionEvent>()
+
+        {
 
             Vehicle vh;
             Vehicle vh1;
@@ -285,7 +389,7 @@ public class Controller extends Application {
                     if (cI.vehicleT1.getText().equals(h.getId())) {
                         vh = h;
                     } else {
-                       // JOptionPane.showMessageDialog(null,
+                        // JOptionPane.showMessageDialog(null,
                         // "Fahrzeug nicht vorhanden. Bitte tragen sie ein vorhandenes Fahrzeug ein");
                     }
                 }
@@ -299,7 +403,7 @@ public class Controller extends Application {
                         vh1 = h;
                         b.addZugelasseneKlasse(vh1);
                     } else {
-                       // JOptionPane.showMessageDialog(null, "Fahrzeug nicht vorhanden. Bitte tragen sie ein vorhandenes Fahrzeug ein");
+                        // JOptionPane.showMessageDialog(null, "Fahrzeug nicht vorhanden. Bitte tragen sie ein vorhandenes Fahrzeug ein");
                     }
                 }
                 for (Vehicle h : admin.vehicles) {
@@ -307,7 +411,7 @@ public class Controller extends Application {
                         vh2 = h;
                         b.addZugelasseneKlasse(vh2);
                     } else {
-                       // JOptionPane.showMessageDialog(null, "Fahrzeug nicht vorhanden. Bitte tragen sie ein vorhandenes Fahrzeug ein");
+                        // JOptionPane.showMessageDialog(null, "Fahrzeug nicht vorhanden. Bitte tragen sie ein vorhandenes Fahrzeug ein");
                     }
                 }
                 admin.drivinginstructorlist.add(b);
@@ -315,7 +419,9 @@ public class Controller extends Application {
             }
         });
 
-        cV.create.setOnAction(new EventHandler<ActionEvent>() {
+        cV.create.setOnAction(new EventHandler<ActionEvent>()
+
+        {
 
             public void handle(ActionEvent e) {
                 admin.vehicles.add(new Vehicle(cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(),
@@ -326,7 +432,9 @@ public class Controller extends Application {
         });
 
 
-        gui.loadH.setOnAction(new EventHandler<ActionEvent>() {
+        gui.loadH.setOnAction(new EventHandler<ActionEvent>()
+
+        {
             public void handle(ActionEvent e) {
                 sAL.load(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
             }

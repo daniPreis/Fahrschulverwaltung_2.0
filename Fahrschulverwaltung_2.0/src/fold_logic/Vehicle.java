@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
-public class  Vehicle implements Subject{
+public class  Vehicle {
 	
 	private String id;
 	private String model;
@@ -73,23 +73,7 @@ public class  Vehicle implements Subject{
 		this.id = id;
 	}
 
-	@Override
-	public void attach(Observer o) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void detach(Observer o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyAllO() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 }

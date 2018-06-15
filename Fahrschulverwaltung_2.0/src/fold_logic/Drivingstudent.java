@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Drivingstudent extends Person implements Subject {
+public class Drivingstudent extends Person{
 
 	
 	//Observer 
-	List<Observer> oL = new ArrayList<Observer>();
+	//List<Observer> oL = new ArrayList<Observer>();
 	private int state = 0;
 	
 	private String theoryPassed;
@@ -133,39 +133,8 @@ public class Drivingstudent extends Person implements Subject {
 		this.nameOfDrivinginstr = nameOfDrivinginstr;
 	}
 
-	@Override
-	public void attach(Observer o) {
-		this.oL.add(o);
-		
-	}
 
-	@Override
-	public void detach(Observer o) {
-		this.oL.remove(o);
-		
-	}
 
-	@Override
-	public void notifyAllO() {
-		for(Observer a : oL) {
-			a.update();
-		}
-		
-	}
 
-	/**
-	 * @return the state
-	 */
-	public int getState() {
-		return state;
-	}
-
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(int state) {
-		this.state = state;
-		notifyAllO();
-	}
 
 }

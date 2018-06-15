@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Drivinginstructor extends Person implements Subject {
+public class Drivinginstructor extends Person {
 	
 	private int id;
 	private static int idcount = 1;
@@ -103,23 +103,7 @@ public class Drivinginstructor extends Person implements Subject {
 		return licensedVehicles;
 	}
 
-	@Override
-	public void attach(Observer o) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void detach(Observer o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyAllO() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 
