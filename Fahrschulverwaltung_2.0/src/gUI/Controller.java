@@ -30,6 +30,7 @@ public class Controller extends Application {
     Scene addV_GUI;
     Scene addS_GUI;
     Scene detV_GUI;
+    Scene detS_GUI;
 
     Administration admin = Administration.getInstance();
     SaverAndLoader sAL = new SaverAndLoader();
@@ -49,10 +50,13 @@ public class Controller extends Application {
         Create_Instructor_GUI cI = new Create_Instructor_GUI();
         Detail_Instructor_GUI dI = new Detail_Instructor_GUI();
 
-
+        dV.label = new Label("Fahrzeug bearbeiten");
+        dI.label = new Label("Fahrlehrer bearbeiten:");
+        dS.label = new Label("Fahrschüler bearbeiten");
+        detV_GUI = new Scene(dV.showDetails(),900,700);
         addI_GUI = new Scene(cI.showDetails(), 900, 700);
-
-
+        detS_GUI = new Scene(dS.showDetails(), 900, 700);
+        Scene detI_GUI = new Scene(dI.showDetails(), 900, 700);
         addV_GUI = new Scene(cV.showDetails(), 900, 700);
 
 
@@ -143,7 +147,8 @@ public class Controller extends Application {
                     dV.admissionClassT = new TextField(rowData.getAdmissionClass());
                     dV.manufacturerT = new TextField(rowData.getManufacturer());
 
-                    detV_GUI = new Scene(dV.showDetails(),900,700);
+                    dV.updateView();
+
                     addStage.setScene(detV_GUI);
                     addStage.setTitle("Fahrzeug bearbeiten");
                     addStage.show();
@@ -185,7 +190,9 @@ public class Controller extends Application {
                     dS.numTheLesT = new TextField(Integer.toString(rowData.getNumTheLes()));
                     dS.theoryPassedT = new TextField(rowData.getThPa());
                     dS.numPraLesT = new TextField(rowData.getPrPa());
-                    Scene detS_GUI = new Scene(dS.showDetails(), 900, 700);
+
+
+                    dS.updateView();
                     addStage.setScene(detS_GUI);
                     addStage.setTitle("Fahrschüler bearbeiten");
                     addStage.show();
@@ -247,7 +254,9 @@ public class Controller extends Application {
                     if (rowData.sizeOflV > 2) {
                         dI.vehicleT3 = new TextField(rowData.getlicensedVehicles().get(2).getId());
                     }
-                    Scene detI_GUI = new Scene(dI.showDetails(), 900, 700);
+
+
+                    dI.updateView();
                     addStage.setScene(detI_GUI);
                     addStage.setTitle("Fahrlehrer bearbeiten");
                     addStage.show();

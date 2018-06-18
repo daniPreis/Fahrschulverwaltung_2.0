@@ -39,4 +39,11 @@ public abstract class Object_GUI {
 		return bp;
 	}
 
+	public BorderPane updateView() {
+		bp.setCenter(null);
+
+		//GridPane gp1 = addGridPane();
+		bp.setCenter(gp);
+		return bp;
+	}
 }

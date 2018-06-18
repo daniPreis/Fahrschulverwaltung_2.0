@@ -23,6 +23,7 @@ public class Detail_Vehicle_GUI extends Vehicle_GUI {
 		return vb;
 	}
 
+
 	public void setVehicle(Vehicle v) {
 		this.rowData = v;
 	}

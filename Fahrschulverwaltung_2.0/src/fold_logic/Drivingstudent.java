@@ -1,5 +1,7 @@
 package fold_logic;
 
+import javafx.beans.InvalidationListener;
+
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -134,7 +136,13 @@ public class Drivingstudent extends Person{
 	}
 
 
+	@Override
+	public void addListener(InvalidationListener listener) {
 
+	}
 
+	@Override
+	public void removeListener(InvalidationListener listener) {
 
+	}
 }

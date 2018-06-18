@@ -1,5 +1,7 @@
 package fold_logic;
 
+import javafx.beans.InvalidationListener;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -104,7 +106,13 @@ public class Drivinginstructor extends Person {
 	}
 
 
+    @Override
+    public void addListener(InvalidationListener listener) {
 
-	
+    }
 
+    @Override
+    public void removeListener(InvalidationListener listener) {
+
+    }
 }
