@@ -15,8 +15,7 @@ public class Administration {
 	public LinkedList<Drivingstudent> studentListLL = new LinkedList<Drivingstudent>();
 	public LinkedList<Vehicle> vehiclesLL = new LinkedList<Vehicle>();
 
-	public ObservableList<Drivinginstructor> drivinginstructorlist = FXCollections
-			.observableList(drivinginstructorlistLL);
+	public ObservableList<Drivinginstructor> drivinginstructorlist = FXCollections.observableList(drivinginstructorlistLL);
 	public ObservableList<Drivingstudent> studentList = FXCollections.observableList(studentListLL);
 	public ObservableList<Vehicle> vehicles = FXCollections.observableList(vehiclesLL);
 
@@ -117,7 +116,7 @@ public class Administration {
 		b.forEach((n) -> {
 
 			drivinginstructorlist.add(new Drivinginstructor(n.getName(), n.getFirstname(),
-					new Adress(n.getPLZ(), n.getCity(), n.getStreet(), n.getHousenr())));
+					new Adress(n.getPLZ(), n.getCity(), n.getStreet(), n.getHousenr()),n.getId()));
 
 		});
 
@@ -131,7 +130,7 @@ public class Administration {
 					a = u;
 				}
 			}
-			Vehicle v = new Vehicle("", "", "", "", 0);
+			Vehicle v = new Vehicle("dummy", "", "", "", 0);
 
 			for (Vehicle q : vehicles) {
 
@@ -152,7 +151,7 @@ public class Administration {
 
 				studentList.add(new Drivingstudent(e.getName(), e.getFirstname(),
 						new Adress(e.getPLZ(), e.getCity(), e.getStreet(), e.getHousenr()), e.getNumTheLes(),
-						e.isTheoryPassed(), g, e.getNumPraLes(), e.isPraxisPassed()));
+						e.isTheoryPassed(), a, e.getNumPraLes(), e.isPraxisPassed()));
 			}
 
 		});

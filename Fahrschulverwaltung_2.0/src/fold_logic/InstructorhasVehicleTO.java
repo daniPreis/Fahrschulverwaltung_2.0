@@ -12,13 +12,15 @@ package fold_logic;
 public class InstructorhasVehicleTO 
 {
     private String CarID;
+    private String InstructorIDString;
     private int InstructorID;
-    
+
+
     public InstructorhasVehicleTO(String ID, int id)
     {
         CarID=ID;
         InstructorID=id;
-        
+
     }
     public String getCarID()
     {
@@ -29,6 +31,8 @@ public class InstructorhasVehicleTO
     {
         return InstructorID;
     }
+
+    public String getInstructorIDString() { return InstructorIDString;}
     
     
 }
