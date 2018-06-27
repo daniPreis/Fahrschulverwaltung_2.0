@@ -168,6 +168,7 @@ public class Controller extends Application {
             public void handle(ActionEvent event) {
                 admin.vehicles.add(new Vehicle(cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(),
                         cV.manufacturerT.getText(), Integer.parseInt(cV.constructionYearT.getText())));
+                JOptionPane.showMessageDialog(null,"Fahrzeug erfolgreich geändert");
                 addStage.close();
             }
         });
@@ -231,7 +232,7 @@ public class Controller extends Application {
                 addStage.close();
             }
         });
-        gui.tableI.setRowFactory(tv ->
+        /*gui.tableI.setRowFactory(tv ->
 
         {
             TableRow<Drivinginstructor> row = new TableRow<Drivinginstructor>();
@@ -271,7 +272,7 @@ public class Controller extends Application {
             });
             return row;
         });
-
+*/
 
         dI.print.setOnAction(e -> dI.rowData.writeInFile());
 
