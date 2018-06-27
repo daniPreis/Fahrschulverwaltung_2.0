@@ -208,6 +208,7 @@ public class Controller extends Application {
         });
 
         dS.print.setOnAction(e -> dS.rowData.writeInFile());
+
         dS.save.setOnAction(new EventHandler<ActionEvent>() {
             Drivinginstructor a = new Drivinginstructor("", "", new Adress(0, "", "", 0), 0);
 
@@ -226,6 +227,7 @@ public class Controller extends Application {
                                 Integer.parseInt(cS.houseNrT.getText())),
                         Integer.parseInt(cS.numTheLesT.getText()), cS.theoryPassedT.getText(), a,
                         Integer.parseInt(cS.numPraLesT.getText()), cS.praxisPassedT.getText()));
+                JOptionPane.showMessageDialog(null,"Fahrschüler erfolgreich geändert");
                 addStage.close();
             }
         });
@@ -312,6 +314,7 @@ public class Controller extends Application {
                     }
                 }
                 admin.drivinginstructorlist.add(b);
+                JOptionPane.showMessageDialog(null, "Fahrlehrer erfolgreich geändert");
                 addStage.close();
             }
         });
@@ -323,8 +326,10 @@ public class Controller extends Application {
             public void handle(ActionEvent e) {
 
                 sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-
+                JOptionPane.showMessageDialog(null,"Speichern erfolgreich");
             }
+
+
         });
 
         gui.saveV.setOnAction(new EventHandler<ActionEvent>()
@@ -333,8 +338,12 @@ public class Controller extends Application {
 
             public void handle(ActionEvent e) {
 
-                sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-
+               try {
+                   sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
+                   JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
+               }catch (Exception z){
+                   JOptionPane.showMessageDialog(null, "Speichern fehlgeschlagen");
+               }
             }
         });
 
@@ -344,8 +353,12 @@ public class Controller extends Application {
 
             public void handle(ActionEvent e) {
 
-                sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-
+              try {
+                  sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
+                  JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
+              }catch (Exception z){
+                  JOptionPane.showMessageDialog(null, "Speichern fehlgeschlagen");
+              }
             }
         });
 
@@ -355,8 +368,12 @@ public class Controller extends Application {
 
             public void handle(ActionEvent e) {
 
-                sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-
+                try {
+                    sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
+                    JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
+                }catch (Exception z){
+                    JOptionPane.showMessageDialog(null, "Speichern fehlgeschlagen");
+                }
             }
         });
 
@@ -381,6 +398,7 @@ public class Controller extends Application {
                                 Integer.parseInt(cS.houseNrT.getText())),
                         Integer.parseInt(cS.numTheLesT.getText()), cS.theoryPassedT.getText(), a,
                         Integer.parseInt(cS.numPraLesT.getText()), cS.praxisPassedT.getText()));
+                JOptionPane.showMessageDialog(null,"Student erfolgreich hinzugefügt");
                 addStage.close();
             }
         });
@@ -424,6 +442,7 @@ public class Controller extends Application {
                     }
                 }
                 admin.drivinginstructorlist.add(b);
+                JOptionPane.showMessageDialog(null,"Fahrlehrer erfolgreich hinzugefügt");
                 addStage.close();
             }
         });
@@ -435,6 +454,7 @@ public class Controller extends Application {
             public void handle(ActionEvent e) {
                 admin.vehicles.add(new Vehicle(cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(),
                         cV.manufacturerT.getText(), Integer.parseInt(cV.constructionYearT.getText())));
+                JOptionPane.showMessageDialog(null,"Fahrzeug erfolgreich hinzugefügt");
                 addStage.close();
             }
 
@@ -446,6 +466,7 @@ public class Controller extends Application {
         {
             public void handle(ActionEvent e) {
                 sAL.load(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
+                JOptionPane.showMessageDialog(null, "Laden erfolgreich");
             }
         });
 
