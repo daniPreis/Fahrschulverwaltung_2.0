@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="com.github.log4jdbc-forjdbi:log4jdbc:1.2" type="repository">
+    <properties maven-id="com.github.log4jdbc-forjdbi:log4jdbc:1.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/log4jdbc-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

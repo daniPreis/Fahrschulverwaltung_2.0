@@ -1,15 +1,7 @@
 package gUI;
 
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import javax.swing.JOptionPane;
-
 import data_management.SaverAndLoader;
-import fold_logic.Administration;
-import fold_logic.Adress;
-import fold_logic.Drivinginstructor;
-import fold_logic.Drivingstudent;
-import fold_logic.Vehicle;
+import fold_logic.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,8 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
+
+import javax.swing.*;
 
 public class Controller extends Application {
 
@@ -34,6 +28,8 @@ public class Controller extends Application {
 
     Administration admin = Administration.getInstance();
     SaverAndLoader sAL = new SaverAndLoader();
+
+    final static Logger logger = Logger.getLogger(Controller.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -53,7 +49,7 @@ public class Controller extends Application {
         dV.label = new Label("Fahrzeug bearbeiten");
         dI.label = new Label("Fahrlehrer bearbeiten:");
         dS.label = new Label("Fahrschüler bearbeiten");
-        detV_GUI = new Scene(dV.showDetails(),900,700);
+        detV_GUI = new Scene(dV.showDetails(), 900, 700);
         addI_GUI = new Scene(cI.showDetails(), 900, 700);
         detS_GUI = new Scene(dS.showDetails(), 900, 700);
         Scene detI_GUI = new Scene(dI.showDetails(), 900, 700);
@@ -61,7 +57,6 @@ public class Controller extends Application {
 
 
         addS_GUI = new Scene(cS.showDetails(), 900, 700);
-
 
         Stage addStage = new Stage();
 
@@ -166,14 +161,29 @@ public class Controller extends Application {
         dV.save.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                admin.vehicles.add(new Vehicle(cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(),
-                        cV.manufacturerT.getText(), Integer.parseInt(cV.constructionYearT.getText())));
-                JOptionPane.showMessageDialog(null,"Fahrzeug erfolgreich geändert");
-                addStage.close();
+                try {
+                    admin.vehicles.add(new Vehicle(cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(),
+                            cV.manufacturerT.getText(), Integer.parseInt(cV.constructionYearT.getText())));
+                    logger.info(String.format("Fahrzeug bearbeitet: %s%s%s%s%d", cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(), cV.manufacturerT.getText(), Integer.parseInt(cV.constructionYearT.getText())));
+                    JOptionPane.showMessageDialog(null, "Fahrzeug erfolgreich geändert");
+                    addStage.close();
+                } catch (Exception e) {
+                    logger.error("Vehicle edit failed: ", e);
+                }
             }
         });
 
-        dV.print.setOnAction(e -> dV.rowData.writeInFile());
+        dV.print.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    dV.rowData.writeInFile();
+                    logger.info(String.format("In File %s", dV.rowData.getId()));
+                } catch (Exception e) {
+                    logger.error("Write in File failed", e);
+                }
+            }
+        });
 
         gui.tableS.setRowFactory(tv -> {
             TableRow<Drivingstudent> row = new TableRow<Drivingstudent>();
@@ -208,28 +218,50 @@ public class Controller extends Application {
             return row;
         });
 
-        dS.print.setOnAction(e -> dS.rowData.writeInFile());
+        dS.print.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    dS.rowData.writeInFile();
+                    logger.info(String.format("Drivingstudent in File %s", dS.rowData.getName()));
+                } catch (Exception e) {
+                    logger.error("Write in File failed: ", e);
+                }
+            }
+        });
 
         dS.save.setOnAction(new EventHandler<ActionEvent>() {
             Drivinginstructor a = new Drivinginstructor("", "", new Adress(0, "", "", 0), 0);
 
             public void handle(ActionEvent e) {
 
-                for (Drivinginstructor b : admin.drivinginstructorlist) {
-                    if (b.getName().equals(cS.drivinginstructorT.getText()))
-                        a = b;
-                    else {
-                        JOptionPane.showMessageDialog(null,
-                                "Vorhandener Fahrlehrer nicht vorhanden, bitte vorhandenen Fahrlehrer eintragen");
+                if (cS.nameT.getText() != null && cS.surnameT.getText() != null &&
+                        cS.plZT.getText() != null && cS.cityT.getText() != null && cS.streetT.getText() != null
+                        && cS.houseNrT.getText() != null && cS.numTheLesT.getText() != null && cS.numPraLesT.getText() != null && cS.theoryPassedT.getText() != null
+                        && cS.praxisPassedT.getText() != null) {
+                    for (Drivinginstructor b : admin.drivinginstructorlist) {
+
+                        if (b.getName().equals(cS.drivinginstructorT.getText())) {
+                            a = b;
+                            admin.studentList.add(new Drivingstudent(cS.nameT.getText(), cS.surnameT.getText(),
+                                    new Adress(Integer.parseInt(cS.plZT.getText()), cS.cityT.getText(), cS.streetT.getText(),
+                                            Integer.parseInt(cS.houseNrT.getText())),
+                                    Integer.parseInt(cS.numTheLesT.getText()), cS.theoryPassedT.getText(), a,
+                                    Integer.parseInt(cS.numPraLesT.getText()), cS.praxisPassedT.getText()));
+                            JOptionPane.showMessageDialog(null, "Fahrschüler erfolgreich geändert");
+                            addStage.close();
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Vorhandener Fahrlehrer nicht vorhanden, bitte vorhandenen Fahrlehrer eintragen");
+                            logger.error(String.format("Error: Instructor not found"));
+                        }
                     }
+
+
+                } else {
+                    logger.error("Cannot add Student, TextView is not filled");
                 }
-                admin.studentList.add(new Drivingstudent(cS.nameT.getText(), cS.surnameT.getText(),
-                        new Adress(Integer.parseInt(cS.plZT.getText()), cS.cityT.getText(), cS.streetT.getText(),
-                                Integer.parseInt(cS.houseNrT.getText())),
-                        Integer.parseInt(cS.numTheLesT.getText()), cS.theoryPassedT.getText(), a,
-                        Integer.parseInt(cS.numPraLesT.getText()), cS.praxisPassedT.getText()));
-                JOptionPane.showMessageDialog(null,"Fahrschüler erfolgreich geändert");
-                addStage.close();
+
             }
         });
         /*gui.tableI.setRowFactory(tv ->
@@ -274,12 +306,15 @@ public class Controller extends Application {
         });
 */
 
-        dI.print.setOnAction(e -> dI.rowData.writeInFile());
+        dI.print.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dI.rowData.writeInFile();
+                logger.info(String.format("Instructor in File: %s", dI.rowData.getId()));
+            }
+        });
 
-        dI.save.setOnAction(new EventHandler<ActionEvent>()
-
-        {
-
+        dI.save.setOnAction(new EventHandler<ActionEvent>() {
             Vehicle vh;
             Vehicle vh1;
             Vehicle vh2;
@@ -315,22 +350,17 @@ public class Controller extends Application {
                     }
                 }
                 admin.drivinginstructorlist.add(b);
+                logger.info(String.format("Instructor Changed: %s", b.getId()));
                 JOptionPane.showMessageDialog(null, "Fahrlehrer erfolgreich geändert");
                 addStage.close();
             }
         });
 
-        gui.saveH.setOnAction(new EventHandler<ActionEvent>()
+        gui.saveH.setOnAction(e -> {
 
-        {
-
-            public void handle(ActionEvent e) {
-
-                sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-                JOptionPane.showMessageDialog(null,"Speichern erfolgreich");
-            }
-
-
+            sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
+            logger.info("Saving successfull");
+            JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
         });
 
         gui.saveV.setOnAction(new EventHandler<ActionEvent>()
@@ -339,12 +369,14 @@ public class Controller extends Application {
 
             public void handle(ActionEvent e) {
 
-               try {
-                   sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-                   JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
-               }catch (Exception z){
-                   JOptionPane.showMessageDialog(null, "Speichern fehlgeschlagen");
-               }
+                try {
+                    sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
+                    JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
+                    logger.info("Save successful");
+                } catch (Exception z) {
+                    JOptionPane.showMessageDialog(null, "Speichern fehlgeschlagen");
+                    logger.info("Save failed");
+                }
             }
         });
 
@@ -354,12 +386,14 @@ public class Controller extends Application {
 
             public void handle(ActionEvent e) {
 
-              try {
-                  sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-                  JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
-              }catch (Exception z){
-                  JOptionPane.showMessageDialog(null, "Speichern fehlgeschlagen");
-              }
+                try {
+                    sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
+                    logger.info("Save successful");
+                    JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
+                } catch (Exception z) {
+                    JOptionPane.showMessageDialog(null, "Speichern fehlgeschlagen");
+                    logger.error("Save failed");
+                }
             }
         });
 
@@ -372,8 +406,10 @@ public class Controller extends Application {
                 try {
                     sAL.save(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
                     JOptionPane.showMessageDialog(null, "Speichern erfolgreich");
-                }catch (Exception z){
+                    logger.info("Save successfull");
+                } catch (Exception z) {
                     JOptionPane.showMessageDialog(null, "Speichern fehlgeschlagen");
+                    logger.error("save failed");
                 }
             }
         });
@@ -399,7 +435,8 @@ public class Controller extends Application {
                                 Integer.parseInt(cS.houseNrT.getText())),
                         Integer.parseInt(cS.numTheLesT.getText()), cS.theoryPassedT.getText(), a,
                         Integer.parseInt(cS.numPraLesT.getText()), cS.praxisPassedT.getText()));
-                JOptionPane.showMessageDialog(null,"Student erfolgreich hinzugefügt");
+                JOptionPane.showMessageDialog(null, "Student erfolgreich hinzugefügt");
+                logger.info(String.format("Student addet: %s", cS.nameT.getText()));
                 addStage.close();
             }
         });
@@ -443,7 +480,8 @@ public class Controller extends Application {
                     }
                 }
                 admin.drivinginstructorlist.add(b);
-                JOptionPane.showMessageDialog(null,"Fahrlehrer erfolgreich hinzugefügt");
+                JOptionPane.showMessageDialog(null, "Fahrlehrer erfolgreich hinzugefügt");
+                logger.info(String.format("Instructor addet %s"));
                 addStage.close();
             }
         });
@@ -455,7 +493,8 @@ public class Controller extends Application {
             public void handle(ActionEvent e) {
                 admin.vehicles.add(new Vehicle(cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(),
                         cV.manufacturerT.getText(), Integer.parseInt(cV.constructionYearT.getText())));
-                JOptionPane.showMessageDialog(null,"Fahrzeug erfolgreich hinzugefügt");
+                JOptionPane.showMessageDialog(null, "Fahrzeug erfolgreich hinzugefügt");
+                logger.info(String.format("Vehicle addet: %s", cV.idT.getText()));
                 addStage.close();
             }
 
@@ -466,8 +505,13 @@ public class Controller extends Application {
 
         {
             public void handle(ActionEvent e) {
-                sAL.load(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
-                JOptionPane.showMessageDialog(null, "Laden erfolgreich");
+                try {
+                    sAL.load(admin.vehicles, admin.drivinginstructorlist, admin.studentList);
+                    JOptionPane.showMessageDialog(null, "Laden erfolgreich");
+                    logger.info("Loading sucessfull");
+                } catch (Exception u) {
+                    logger.error("Loading failed", u);
+                }
             }
         });
 
@@ -478,7 +522,12 @@ public class Controller extends Application {
 
     public static void main(String[] args) {
 
-        launch();
+        try {
+            launch();
+            logger.info("Program started");
+        } catch (Exception e) {
+            logger.error("Start failed", e);
+        }
     }
 
 }
