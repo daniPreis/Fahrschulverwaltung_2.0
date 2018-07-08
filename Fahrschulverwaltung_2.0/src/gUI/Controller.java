@@ -11,6 +11,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
 
 import javax.swing.*;
 
@@ -29,7 +30,8 @@ public class Controller extends Application {
     Administration admin = Administration.getInstance();
     SaverAndLoader sAL = new SaverAndLoader();
 
-    final static Logger logger = Logger.getLogger(Controller.class);
+    final static Logger logger = Logger.getLogger(String.valueOf(Controller.class.getClassLoader().getResource("log4j.properties")));
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
