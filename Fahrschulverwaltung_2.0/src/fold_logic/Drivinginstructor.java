@@ -1,6 +1,7 @@
 package fold_logic;
 
 import javafx.beans.InvalidationListener;
+import org.apache.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -15,8 +16,10 @@ public class Drivinginstructor extends Person {
 	private List<Vehicle> licensedVehicles = new LinkedList<Vehicle>();
 	public String vehiclesAsString;
 	public int sizeOflV = getlicensedVehicles().size();
-	
-	
+	static final Logger debugLog = Logger.getLogger("debugLogger");
+	static final Logger infoLog = Logger.getLogger("infoLogger");
+
+
 
 	public Drivinginstructor(String name, String firstname, Adress adress, Vehicle licensedVehicle) {
 		super(name, firstname, adress);
@@ -63,8 +66,8 @@ public class Drivinginstructor extends Person {
 				"C:\\Users\\Dani\\Documents\\Uni\\4.Semester\\SWT2\\Fahrschule\\Fahrlehrer\\" + getName() + ".txt")) {
 			out.println(s);
 		} catch (FileNotFoundException e) {
+			debugLog.error("Cannot write in File", e);
 
-			e.printStackTrace();
 		}
 
 	}

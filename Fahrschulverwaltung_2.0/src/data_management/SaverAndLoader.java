@@ -15,11 +15,15 @@ import fold_logic.InstructorhasVehicleTO;
 import fold_logic.Vehicle;
 import fold_logic.VehicleTO;
 import java.util.LinkedList;
+
 import javafx.collections.ObservableList;
+import org.apache.log4j.Logger;
 
 public class SaverAndLoader implements IDAO {
 
 	Connection conn;
+	static final Logger debugLog = Logger.getLogger("debugLogger");
+	static final Logger infoLog = Logger.getLogger("infoLogger");
 
 	public void save(ObservableList<Vehicle> v, ObservableList<Drivinginstructor> g, ObservableList<Drivingstudent> s) {
 		try {
@@ -85,9 +89,11 @@ public class SaverAndLoader implements IDAO {
 					PreparedStatement create2 = conn.prepareStatement(bc);
 					create2.executeUpdate();
 				}
+				infoLog.info("Saving successfull");
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+
+			debugLog.error("Saving failed",e);
 		} finally {
 			System.out.println("Function complete.");
 		}
@@ -160,12 +166,12 @@ public class SaverAndLoader implements IDAO {
 					System.out.println(bc);
 					PreparedStatement create2 = conn.prepareStatement(bc);
 					create2.executeUpdate();
+					infoLog.info("Saving succeeded");
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			debugLog.error("Saving failed",e);
 		} finally {
-			System.out.println("Function complete.");
 		}
 
 	}
@@ -180,10 +186,10 @@ public class SaverAndLoader implements IDAO {
 			Class.forName(driver);
 
 			Connection conn = DriverManager.getConnection(url, username, password);
-			System.out.println("Connected");
+			infoLog.info("Connection succeeded");
 			return conn;
 		} catch (Exception e) {
-			System.out.println(e);
+			debugLog.error("No Connection available",e);
 		}
 
 		return null;
@@ -250,11 +256,10 @@ public class SaverAndLoader implements IDAO {
                             
                         }
                         
-                        
+                    infoLog.info("Loading succeeded");
 		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			System.out.println("Function complete.");
+			debugLog.error("Loading failed",e);
+
 		}
 	}
         
@@ -327,11 +332,9 @@ public class SaverAndLoader implements IDAO {
                             
                         }
                         
-                        
+                        infoLog.info("Loading succeeded");
 		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			System.out.println("Function complete.");
+			debugLog.error("Loading failed",e);
 		}
 	}
 

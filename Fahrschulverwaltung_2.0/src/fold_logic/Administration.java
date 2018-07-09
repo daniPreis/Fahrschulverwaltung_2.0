@@ -3,9 +3,12 @@ package fold_logic;
 import data_management.SaverAndLoader;
 import java.util.LinkedList;
 import java.util.List;
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-//import junit.framework.*;
+import org.apache.log4j.Logger;
+
 
 public class Administration {
 
@@ -20,7 +23,10 @@ public class Administration {
 	public ObservableList<Vehicle> vehicles = FXCollections.observableList(vehiclesLL);
 
 	private static Administration onlyAdmin = null;
-	
+
+    static final Logger debugLog = Logger.getLogger("debugLogger");
+    static final Logger infoLog = Logger.getLogger("infoLogger");
+
 	private Administration() {
 
 	}
@@ -38,15 +44,32 @@ public class Administration {
 	}
 
 	public void adddrivinginstructor(Drivinginstructor drivinginstructor) {
-		drivinginstructorlist.add(drivinginstructor);
+
+	    try {
+            drivinginstructorlist.add(drivinginstructor);
+            infoLog.info("Drivinginstructor addet" + drivinginstructor.getId());
+        }catch (Exception e){
+	        debugLog.error("Drivinginstructor cannot be addet", e);
+        }
+
 	}
 
 	public void adddrivingsstudent(Drivingstudent drivingstudent) {
+	    try{
 		studentList.add(drivingstudent);
-	}
+		infoLog.info("Student addet" + drivingstudent.getName());
+	}catch (Exception e){
+	    debugLog.error("Student cannot be addet", e);
+	    }
+    }
 
 	public void addvehicle(Vehicle vehicle) {
-		vehicles.add(vehicle);
+	    try{
+            vehicles.add(vehicle);
+            infoLog.info("Vehicle addet" + vehicle.getId());
+        }catch (Exception e){
+	        debugLog.error("Vehicle cannot be addet", e);
+        }
 	}
 
 	public void removedrivinginstructor(Drivinginstructor drivinginstructor) {
