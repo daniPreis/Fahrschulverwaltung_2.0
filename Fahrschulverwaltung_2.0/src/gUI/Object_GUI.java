@@ -17,15 +17,15 @@ public abstract class Object_GUI {
 	Label label;
 
 
-	abstract GridPane addGridPane();
+	abstract GridPane addGridPane(int language);
 
 	abstract VBox setButtons();
 
-	public BorderPane showDetails() {
+	public BorderPane showDetails(int language) {
 
 		bp.setPadding(new Insets(20));
 
-		GridPane gp = addGridPane();
+		GridPane gp = addGridPane(language);
 		gp.setVgap(20);
 		gp.setHgap(40);
 

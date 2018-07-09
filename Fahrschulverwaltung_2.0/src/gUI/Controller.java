@@ -26,6 +26,7 @@ public class Controller extends Application {
     Scene addS_GUI;
     Scene detV_GUI;
     Scene detS_GUI;
+    static int language=0;
 
     Administration admin = Administration.getInstance();
     SaverAndLoader sAL = new SaverAndLoader();
@@ -40,33 +41,39 @@ public class Controller extends Application {
         // Verknüpfung der GUIs
         Main_GUIs gui = new Main_GUIs();
 
-        Create_Vehicle_GUI cV = new Create_Vehicle_GUI();
-        Detail_Vehicle_GUI dV = new Detail_Vehicle_GUI();
+        Create_Vehicle_GUI cV = new Create_Vehicle_GUI(language);
+        Detail_Vehicle_GUI dV = new Detail_Vehicle_GUI(language);
 
-        Create_Student_GUI cS = new Create_Student_GUI();
-        Detail_Student_GUI dS = new Detail_Student_GUI();
+        Create_Student_GUI cS = new Create_Student_GUI(language);
+        Detail_Student_GUI dS = new Detail_Student_GUI(language);
 
-        Create_Instructor_GUI cI = new Create_Instructor_GUI();
-        Detail_Instructor_GUI dI = new Detail_Instructor_GUI();
+        Create_Instructor_GUI cI = new Create_Instructor_GUI(language);
+        Detail_Instructor_GUI dI = new Detail_Instructor_GUI(language);
 
         dV.label = new Label("Fahrzeug bearbeiten");
         dI.label = new Label("Fahrlehrer bearbeiten:");
         dS.label = new Label("Fahrschüler bearbeiten");
-        detV_GUI = new Scene(dV.showDetails(), 900, 700);
-        addI_GUI = new Scene(cI.showDetails(), 900, 700);
-        detS_GUI = new Scene(dS.showDetails(), 900, 700);
-        Scene detI_GUI = new Scene(dI.showDetails(), 900, 700);
-        addV_GUI = new Scene(cV.showDetails(), 900, 700);
+        if(language==1)
+        {
+            dV.label.setText("edit vehicle");
+            dI.label.setText("edit drivinginstructor");
+            dS.label.setText("edit drivingstudent");
+        }
+        detV_GUI = new Scene(dV.showDetails(language), 900, 700);
+        addI_GUI = new Scene(cI.showDetails(language), 900, 700);
+        detS_GUI = new Scene(dS.showDetails(language), 900, 700);
+        Scene detI_GUI = new Scene(dI.showDetails(language), 900, 700);
+        addV_GUI = new Scene(cV.showDetails(language), 900, 700);
 
 
-        addS_GUI = new Scene(cS.showDetails(), 900, 700);
+        addS_GUI = new Scene(cS.showDetails(language), 900, 700);
 
         Stage addStage = new Stage();
 
-        di_GUI = new Scene(gui.createDIGUI(admin.drivinginstructorlist), 900, 700);
-        ds_GUI = new Scene(gui.createDSGUI(admin.studentList), 900, 700);
-        vh_GUI = new Scene(gui.createVhGUI(admin.vehicles), 900, 700);
-        home = new Scene(gui.createHomeGUI(), 900, 700);
+        di_GUI = new Scene(gui.createDIGUI(admin.drivinginstructorlist,language), 900, 700);
+        ds_GUI = new Scene(gui.createDSGUI(admin.studentList,language), 900, 700);
+        vh_GUI = new Scene(gui.createVhGUI(admin.vehicles,language), 900, 700);
+        home = new Scene(gui.createHomeGUI(language), 900, 700);
 
         gui.drivingstudentListeH.setOnAction(e -> primaryStage.setScene(ds_GUI));
         gui.dtListH.setOnAction(e -> primaryStage.setScene(di_GUI));
@@ -75,6 +82,8 @@ public class Controller extends Application {
             public void handle(ActionEvent e) {
                 addStage.setScene(addS_GUI);
                 addStage.setTitle("Fahrschüler hinzufügen");
+                if (language==1)
+                    addStage.setTitle("add drivingstudent");
                 addStage.show();
             }
 
@@ -83,6 +92,8 @@ public class Controller extends Application {
             public void handle(ActionEvent e) {
                 addStage.setScene(addI_GUI);
                 addStage.setTitle("Fahrlehrer hinzufügen");
+                if (language==1)
+                    addStage.setTitle("add drivinginstructor");
                 addStage.show();
             }
 
@@ -91,6 +102,8 @@ public class Controller extends Application {
             public void handle(ActionEvent e) {
                 addStage.setScene(addV_GUI);
                 addStage.setTitle("Fahrzeug hinzufügen");
+                if (language==1)
+                    addStage.setTitle("add vehicle");
                 addStage.show();
             }
 
@@ -103,6 +116,8 @@ public class Controller extends Application {
             public void handle(ActionEvent e) {
                 addStage.setScene(addS_GUI);
                 addStage.setTitle("Fahrschüler hinzufügen");
+                if (language==1)
+                    addStage.setTitle("add drivingstudent");
                 addStage.show();
             }
 
@@ -114,6 +129,8 @@ public class Controller extends Application {
         gui.addI.setOnAction(e -> {
             addStage.setScene(addI_GUI);
             addStage.setTitle("Fahrlehrer hinzufügen");
+            if (language==1)
+                addStage.setTitle("add drivinginstructor");
             addStage.show();
         });
 
@@ -125,6 +142,8 @@ public class Controller extends Application {
 
                 addStage.setScene(addV_GUI);
                 addStage.setTitle("Fahrzeug hinzufügen");
+                if (language==1)
+                    addStage.setTitle("add vehicle");
                 addStage.show();
             }
 
@@ -139,6 +158,9 @@ public class Controller extends Application {
                     Vehicle rowData = row.getItem();
                     dV.rowData = rowData;
                     dV.label = new Label("Fahrzeug bearbeiten");
+                    if (language==1){
+                        dV.label.setText("edit vehicle");
+                    }
                     dV.idT = new TextField(rowData.getId());
                     dV.modelT = new TextField(rowData.getModel());
                     dV.constructionYearT = new TextField(Integer.toString(rowData.getConstructionYear()));
@@ -149,7 +171,10 @@ public class Controller extends Application {
 
                     addStage.setScene(detV_GUI);
                     addStage.setTitle("Fahrzeug bearbeiten");
-                    addStage.show();
+                    if (language==1){
+                        addStage.setTitle("edit vehicle");
+                    }
+                        addStage.show();
 
                     for (Vehicle vehicle : admin.vehicles) {
                         if (vehicle.equals(rowData)) {
@@ -195,6 +220,9 @@ public class Controller extends Application {
                     Drivingstudent rowData = (Drivingstudent) row.getItem();
                     dS.rowData = rowData;
                     dS.label = new Label("Fahrschüler bearbeiten");
+                    if (language==1){
+                        dS.label.setText("edit drivingstudent");
+                    }
                     dS.nameT = new TextField(rowData.getName());
                     dS.surnameT = new TextField(rowData.getFirstname());
                     dS.cityT = new TextField(rowData.getCity());
@@ -209,6 +237,9 @@ public class Controller extends Application {
                     dS.updateView();
                     addStage.setScene(detS_GUI);
                     addStage.setTitle("Fahrschüler bearbeiten");
+                    if (language==1){
+                        addStage.setTitle("edit drivingstudent");
+                    }
                     addStage.show();
 
                     for (Drivingstudent drivingstudent : admin.studentList) {
@@ -251,12 +282,24 @@ public class Controller extends Application {
                                             Integer.parseInt(cS.houseNrT.getText())),
                                     Integer.parseInt(cS.numTheLesT.getText()), cS.theoryPassedT.getText(), a,
                                     Integer.parseInt(cS.numPraLesT.getText()), cS.praxisPassedT.getText()));
-                            JOptionPane.showMessageDialog(null, "Fahrschüler erfolgreich geändert");
+                            if (language==0) {
+
+                                JOptionPane.showMessageDialog(null, "Fahrschüler erfolgreich geändert");
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(null, "student edit success");
+                            }
                             infoLog.info("Student changed" + cS.nameT.getText());
                             addStage.close();
                         } else {
-                            JOptionPane.showMessageDialog(null,
-                                    "Vorhandener Fahrlehrer nicht vorhanden, bitte vorhandenen Fahrlehrer eintragen");
+                            if (language==0) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Vorhandener Fahrlehrer nicht vorhanden, bitte vorhandenen Fahrlehrer eintragen");
+                            }else
+                            {
+                                JOptionPane.showMessageDialog(null,
+                                        "drivinginstructor not found please insert a valid instructor name");
+                            }
                             debugLog.error(String.format("Error: Instructor not found"));
                         }
                     }
@@ -355,7 +398,13 @@ public class Controller extends Application {
                 }
                 admin.drivinginstructorlist.add(b);
                 infoLog.info(String.format("Instructor Changed: %s", b.getId()));
+                if (language==0){
                 JOptionPane.showMessageDialog(null, "Fahrlehrer erfolgreich geändert");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "instructor edit success");
+                }
+
                 addStage.close();
             }
         });
@@ -426,8 +475,14 @@ public class Controller extends Application {
                     if (b.getName().equals(cS.drivinginstructorT.getText()))
                         a = b;
                     else {
-                        JOptionPane.showMessageDialog(null,
-                                "Vorhandener Fahrlehrer nicht vorhanden, bitte vorhandenen Fahrlehrer eintragen");
+                        if (language==0){
+                            JOptionPane.showMessageDialog(null,
+                                    "Vorhandener Fahrlehrer nicht vorhanden, bitte vorhandenen Fahrlehrer eintragen");
+                        }else{
+                            JOptionPane.showMessageDialog(null,
+                                    "drivinginstructor not found please insert a valid instructor name");
+                        }
+
                     }
                 }
                 admin.studentList.add(new Drivingstudent(cS.nameT.getText(), cS.surnameT.getText(),
@@ -435,7 +490,13 @@ public class Controller extends Application {
                                 Integer.parseInt(cS.houseNrT.getText())),
                         Integer.parseInt(cS.numTheLesT.getText()), cS.theoryPassedT.getText(), a,
                         Integer.parseInt(cS.numPraLesT.getText()), cS.praxisPassedT.getText()));
-                JOptionPane.showMessageDialog(null, "Student erfolgreich hinzugefügt");
+                if (language==0) {
+                    JOptionPane.showMessageDialog(null, "Student erfolgreich hinzugefügt");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "student successful added");
+                }
                 infoLog.info(String.format("Student addet: %s", cS.nameT.getText()));
                 addStage.close();
             }
@@ -480,7 +541,12 @@ public class Controller extends Application {
                     }
                 }
                 admin.drivinginstructorlist.add(b);
-                JOptionPane.showMessageDialog(null, "Fahrlehrer erfolgreich hinzugefügt");
+                if (language==0){
+                    JOptionPane.showMessageDialog(null, "Fahrlehrer erfolgreich hinzugefügt");
+                }else{
+                    JOptionPane.showMessageDialog(null, "drivinginstructor added successful");
+                }
+
                 infoLog.info(String.format("Instructor addet %s"));
                 addStage.close();
             }
@@ -493,7 +559,12 @@ public class Controller extends Application {
             public void handle(ActionEvent e) {
                 admin.vehicles.add(new Vehicle(cV.idT.getText(), cV.modelT.getText(), cV.admissionClassT.getText(),
                         cV.manufacturerT.getText(), Integer.parseInt(cV.constructionYearT.getText())));
-                JOptionPane.showMessageDialog(null, "Fahrzeug erfolgreich hinzugefügt");
+
+                if (language==0){
+                    JOptionPane.showMessageDialog(null, "Fahrzeug erfolgreich hinzugefügt");
+                }else{
+                    JOptionPane.showMessageDialog(null, "vehicle add success");
+                }
                 infoLog.info(String.format("Vehicle addet: %s", cV.idT.getText()));
                 addStage.close();
             }
@@ -516,12 +587,17 @@ public class Controller extends Application {
 
         primaryStage.setScene(home);
         primaryStage.setTitle("Fahrschulverwaltung");
+        if (language==1)
+            primaryStage.setTitle("drivingscoolmanagement");
         primaryStage.show();
     }
 
     public static void main(String[] args) {
             infoLog.info("Program started");
         try {
+            Object[] lang={"Deutsch","English"};
+            language=JOptionPane.showOptionDialog(null,"Sprachauswahl","english",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,lang,lang[0]);
+
             launch();
 
         } catch (Exception e) {

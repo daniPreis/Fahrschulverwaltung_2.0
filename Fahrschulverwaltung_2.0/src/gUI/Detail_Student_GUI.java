@@ -13,7 +13,12 @@ public class Detail_Student_GUI extends Student_GUI {
 	Button print = new Button("In Datei speichern");
 	Drivingstudent rowData = new Drivingstudent("","",new Adress(0,"","",0),0,"",null, 0,"");
 
-	public Detail_Student_GUI() {
+	public Detail_Student_GUI(int language) {
+
+		if (language==1){
+			save.setText("save");
+			print.setText("save in file");
+		}
 
 		//drivinginstructorT = new TextField(rowData.getDrivinginstructor().getName());
 	}

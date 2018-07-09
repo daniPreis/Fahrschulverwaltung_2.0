@@ -8,8 +8,14 @@ public class Create_Vehicle_GUI extends Vehicle_GUI {
 
 	Button create = new Button("Hinzufügen");
 
-	public Create_Vehicle_GUI() {
+
+	public Create_Vehicle_GUI(int language) {
+
 		label = new Label("Neues Fahrzeug hinzufügen");
+		if(language==1){
+			label.setText("add new vehicle");
+			create.setText("add");
+		}
 	}
 
 	@Override

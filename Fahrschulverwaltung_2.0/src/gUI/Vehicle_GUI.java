@@ -18,7 +18,7 @@ public abstract class Vehicle_GUI extends Object_GUI {
 	
 	
 	@Override
-	GridPane addGridPane() {
+	GridPane addGridPane(int language) {
 		
 		Label id = new Label("ID");
 		Label model = new Label("Modell: ");
@@ -26,6 +26,15 @@ public abstract class Vehicle_GUI extends Object_GUI {
 		Label manufacturer = new Label("Hersteller: ");
 		Label constructionYear = new Label("Baujahr ");
 		label.setFont((new Font("Arial", 15)));
+
+		if (language==1)
+		{
+			id.setText("id");
+			model.setText("model");
+			admissionClass.setText("admission class");
+			manufacturer.setText("manufacturer");
+			constructionYear.setText("construction year");
+		}
 		
 		gp.addRow(1, label);
 		gp.addRow(2, id, idT);

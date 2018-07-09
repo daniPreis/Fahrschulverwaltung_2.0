@@ -19,7 +19,7 @@ public abstract class Instructor_GUI extends Object_GUI{
 	TextField vehicleT3 = new TextField();
 	
 	@Override
-	GridPane addGridPane() {
+	GridPane addGridPane(int language) {
 		
 		Label nameI = new Label("Name: ");
 		Label surnameI = new Label("Vorname: ");
@@ -29,6 +29,18 @@ public abstract class Instructor_GUI extends Object_GUI{
 		Label streetI = new Label("Straße: ");
 		Label houseNrI = new Label("Hausnummer: ");
 		Label vehicleI1 = new Label("Zugewiesene Fahrzeuge: ");
+
+		if (language==1)
+		{
+			nameI.setText("name");
+			surnameI.setText("surname");
+			plZI.setText("plz");
+			cityI.setText("city");
+			adressI.setText("adress");
+			streetI.setText("street");
+			houseNrI.setText("house number");
+			vehicleI1.setText("vehicle");
+		}
 
 		gp.addRow(1, label);
 		gp.addRow(2, nameI, nameTI);

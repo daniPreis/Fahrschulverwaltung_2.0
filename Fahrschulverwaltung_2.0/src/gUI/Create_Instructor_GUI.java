@@ -8,8 +8,14 @@ public class Create_Instructor_GUI extends Instructor_GUI {
 
     Button create = new Button("Hinzufügen");
 
-    public Create_Instructor_GUI() {
+    public Create_Instructor_GUI(int language) {
+
         label = new Label("Fahrlehrer hinzufügen");
+
+        if (language==1){
+            label.setText("add drivinginstructor");
+            create.setText("add");
+        }
     }
 
     @Override

@@ -93,10 +93,8 @@ public class Main_GUIs {
 	MenuItem drivingInstructorV;
 
 	Button addV = new Button("Neu");
-	
-	
 
-	public BorderPane createVhGUI(ObservableList<Vehicle> oLV) {
+	public BorderPane createVhGUI(ObservableList<Vehicle> oLV,int language) {
 
 		mbV = new MenuBar();
 		home1V = new Menu("Home");
@@ -106,6 +104,17 @@ public class Main_GUIs {
 		homeV = new MenuItem("Home");
 		drivingstudentV = new MenuItem("Fahrschüler");
 		drivingInstructorV = new MenuItem("Fahrlehrer");
+
+		if (language==1){
+			drivingstudent1V.setText("drivingstudent");
+			drivingInstructor1V.setText("drivinginstructor");
+			drivingstudentV.setText("drivingstudent");
+			drivingInstructorV.setText("drivinginstructor");
+			addV.setText("add");
+			loadV.setText("load");
+			saveV.setText("save");
+			dataV.setText("file");
+		}
 
 		mbV.getMenus().add(dataV);
 		mbV.getMenus().add(home1V);
@@ -145,6 +154,13 @@ public class Main_GUIs {
 		constructionYearCol.setCellValueFactory(new PropertyValueFactory<Vehicle, Integer>("constructionYear"));
 		constructionYearCol.setMinWidth(150);
 
+		if (language==1){
+			modelCol.setText("Model");
+			admissionClassCol.setText("Admissionclass");
+			manufacturerCol.setText("Manufacturer");
+			constructionYearCol.setText("Constructionyear");
+		}
+
 		tableV.getColumns().addAll(idColV, modelCol, admissionClassCol, manufacturerCol, constructionYearCol);
 
 
@@ -155,7 +171,7 @@ public class Main_GUIs {
 		return bpV;
 	}
 
-	public BorderPane createDSGUI(ObservableList<Drivingstudent> oLS) {
+	public BorderPane createDSGUI(ObservableList<Drivingstudent> oLS,int language) {
 		bpS = new BorderPane();
 
 		// MenüLeiste
@@ -167,6 +183,21 @@ public class Main_GUIs {
 		homeS = new MenuItem("Home");
 		drivinginstructorS = new MenuItem("Fahrlehrer");
 		vehiclesS = new MenuItem("Fahrzeug");
+
+		if (language==1){
+			vehicles1S.setText("vehicle");
+			drivinginstructor1S.setText("drivinginstructor");
+			vehiclesS.setText("vehicle");
+			drivinginstructorS.setText("drivinginstructor");
+
+			loadS.setText("load");
+			saveS.setText("save");
+			dataS.setText("file");
+		}
+
+
+
+
 
 		mbS.getMenus().add(dataS);
 		mbS.getMenus().add(home1S);
@@ -256,6 +287,21 @@ public class Main_GUIs {
 		openAmountsCol.setCellValueFactory(new PropertyValueFactory<Drivingstudent, Integer>("openAmounts"));
 		openAmountsCol.setMinWidth(150);
 
+		if (language==1) {
+
+			NameCol.setText("Name");
+			firstNameCol.setText("Firstname");
+			CityCol.setText("Ciy");
+			StreetCol.setText("Street");
+			HouseNrCol.setText("HouseNr");
+			numThLeCol.setText("amount of theory lessons");
+			ThPassedCol.setText("Theory passed");
+			numPrLeCol.setText("amount of praxis lessons");
+			praPassedCol.setText("praxis passed");
+			drivinginstructor.setText("drivinginstructor");
+			openAmountsCol.setText("Open amounts");
+		}
+
 		tableS.getColumns().setAll(NameCol, firstNameCol, PLZCol, CityCol, StreetCol, HouseNrCol, numThLeCol,
 				ThPassedCol, numPrLeCol, praPassedCol, drivinginstructor, openAmountsCol);
 
@@ -265,20 +311,31 @@ public class Main_GUIs {
 
 		// Sonstiges
 		addS = new Button("Neu");
+		if (language==1)
+			addS.setText("add");
 		addS.setPrefSize(50, 50);
 		bpS.setRight(addS);
 
 		return bpS;
 	}
 
-	BorderPane createHomeGUI() {
-
+	BorderPane createHomeGUI(int language) {
+		if (language==1) {
+			dataH.setText("file");
+			drivingstudentListmH.setText("drivingstudent");
+			dtListH.setText("drivinginstructor");
+			vehiclesmH.setText("vehicle");
+			saveH.setText("save");
+			loadH.setText("load");
+			drivingstudentListeH.setText("drivingstudent");
+			dtListmH.setText("drivinginstructor");
+			vehiclesH.setText("vehicle");
+		}
 		// Menüleiste
 		mbH.getMenus().add(dataH);
 		mbH.getMenus().add(drivingstudentListmH);
 		mbH.getMenus().add(dtListmH);
 		mbH.getMenus().add(vehiclesmH);
-		
 		dataH.getItems().add(saveH);
 		dataH.getItems().add(loadH);
 		drivingstudentListmH.getItems().add(drivingstudentListeH);
@@ -294,6 +351,13 @@ public class Main_GUIs {
 		adddrivingInstructorH = new Button("Fahrlehrer");
 		adddrivingInstructorH.setPrefSize(100, 100);
 
+		if (language==1){
+			adddrivingInstructorH.setText("Drivinginstructor");
+			adddrivingstudentH.setText("Drivingstudent");
+			addVehicleH.setText("Vehicle");
+		}
+
+
 		VBox vb = new VBox();
 		vb.setSpacing(50);
 		vb.setPadding(new Insets(10));
@@ -306,7 +370,7 @@ public class Main_GUIs {
 		return bpH;
 	}
 
-	public BorderPane createDIGUI(ObservableList<Drivinginstructor> drivinginstructorlist) {
+	public BorderPane createDIGUI(ObservableList<Drivinginstructor> drivinginstructorlist,int language) {
 
 		mbI = new MenuBar();
 		home1I = new Menu("Home");
@@ -315,6 +379,16 @@ public class Main_GUIs {
 		homeI = new MenuItem("Home");
 		drivingstudentI = new MenuItem("Fahrschüler");
 		vehicleI = new MenuItem("Fahrzeug");
+		if (language==1){
+			dataI.setText("File");
+			drivingstudent1I.setText("Drivingstudent");
+			vehicle1I.setText("Vehicle");
+			saveI.setText("Save");
+			loadI.setText("Load");
+			drivingstudentI.setText("Drivingstudent");
+			vehicleI.setText("Vehicle");
+			addI.setText("Add");
+		}
 		mbI.getMenus().add(dataI);
 		mbI.getMenus().add(home1I);
 		mbI.getMenus().add(drivingstudent1I);
@@ -379,6 +453,17 @@ public class Main_GUIs {
 		vehicleColI.setCellValueFactory(new PropertyValueFactory<Drivinginstructor, String>("VehiclesAsString"));
 		vehicleColI.setMinWidth(150);
 		tableI.setItems(drivinginstructorlist);
+
+
+		if (language==1){
+			firstnameColI.setText("Firstname");
+			CityCol.setText("City");
+			StreetCol.setText("Street");
+			HouseNrCol.setText("HouseNr");
+			vehicleColI.setText("Vehicle");
+		}
+
+
 		tableI.getColumns().addAll(nameColI, firstnameColI, PLZCol, CityCol, StreetCol, HouseNrCol, vehicleColI);
 		tableI.setEditable(true);
 

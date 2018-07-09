@@ -13,9 +13,14 @@ public class Detail_Instructor_GUI extends Instructor_GUI {
     Button print = new Button("In Datei speichern");
     Drivinginstructor rowData = new Drivinginstructor("", "", new Adress(0, "", "", 0));
 
-    public Detail_Instructor_GUI() {
+    public Detail_Instructor_GUI(int language) {
 
         label = new Label("Fahrlehrer bearbeiten");
+        if(language==1){
+            label.setText("add drivinginstructor");
+            save.setText("save");
+            print.setText("save in file");
+        }
 
     }
 

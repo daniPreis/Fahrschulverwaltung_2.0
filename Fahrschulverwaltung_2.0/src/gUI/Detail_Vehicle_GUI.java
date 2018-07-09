@@ -13,6 +13,14 @@ public class Detail_Vehicle_GUI extends Vehicle_GUI {
 	Vehicle rowData = new Vehicle("","","","",0);
 
 
+	public Detail_Vehicle_GUI (int language){
+
+		if (language==1)
+		{
+			save.setText("save");
+			print.setText("save in file");
+		}
+	}
 	@Override
 	VBox setButtons() {
 

@@ -19,7 +19,7 @@ public abstract class Student_GUI extends Object_GUI{
 	TextField drivinginstructorT = new TextField("B");
 
 	@Override
-	GridPane addGridPane() {
+	GridPane addGridPane(int language) {
 		Label name = new Label("Name: ");
 		Label surname = new Label("Vorname: ");
 		Label plZ = new Label("PLZ: ");
@@ -32,7 +32,22 @@ public abstract class Student_GUI extends Object_GUI{
 		Label numTheLes = new Label("Anzahl Theoriestunden: ");
 		Label numPraLes = new Label("Anzahl Praxisstunden: ");
 		Label drivinginstructor = new Label("Fahrlehrer:  ");
-		
+
+		if (language==1) {
+			name.setText("name");
+			surname.setText("surname");
+			plZ.setText("PLZ");
+			city.setText("city");
+			adress.setText("adress");
+			street.setText("street");
+			houseNr.setText("housenr");
+			theoryPassed.setText("theory passed");
+			praxisPassed.setText("praxis passed");
+			numTheLes.setText("amount of theory lessons");
+			numPraLes.setText("amount of praxis lessons");
+			drivinginstructor.setText("drivinginstructor");
+		}
+
 		gp.addRow(1, label);
 		gp.addRow(2, name, nameT);
 		gp.addRow(3, surname, surnameT);

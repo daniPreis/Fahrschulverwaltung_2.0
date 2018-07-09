@@ -8,8 +8,12 @@ public class Create_Student_GUI extends Student_GUI {
 
 	Button create = new Button("Hinzufügen");
 
-	public Create_Student_GUI() {
+	public Create_Student_GUI(int language) {
 		label = new Label("Fahrschüler hinzufügen");
+		if (language==1) {
+			label.setText("add drivingstudent");
+			create.setText("add");
+		}
 	}
 	@Override
 	VBox setButtons() {
